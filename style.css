@@ -63,8 +63,16 @@ a{color:inherit;text-decoration:none}
 }
 .btn-primary{background:linear-gradient(180deg, #9a6633, var(--wood)); color:#fff; box-shadow:0 10px 24px rgba(91,58,34,.20)}
 .btn-primary:hover{transform:translateY(-1px)}
-.btn-secondary{background:#fff; border-color:var(--line)}
-.btn-secondary:hover{border-color:#c8b29a}
+.btn-secondary{
+    background:#8b5a2b;
+    color:#ffffff;
+    border:1px solid #8b5a2b;
+}
+
+.btn-secondary:hover{
+    background:#6e451f;
+    border-color:#6e451f;
+}
 .hero{
   padding:44px 0 24px;
 }
