@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Lonestar Buckeye Woodworks</title>
+  <meta name="description" content="Contact Lonestar Buckeye Woodworks for quotes on benches, porch swings, planters and custom furniture.">
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div>Handcrafted in North Texas • Frisco, McKinney, Prosper, Celina, Plano & nearby areas</div>
+    <div>Made-to-order furniture, swings, benches and planters</div>
+  </div>
+</div>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Lonestar Buckeye Woodworks logo">
+      <div class="brand-text">
+        <strong>Lonestar Buckeye Woodworks</strong>
+        <span>Local carpenter brand • custom builds in North Texas</span>
+      </div>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="furniture.html">Furniture</a>
+      <a href="outdoor.html">Outdoor</a>
+      <a href="custom-builds.html">Custom Builds</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="btn btn-primary">Request a Custom Build</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="panel">
+        <div>
+          <div class="eyebrow">Get in touch</div>
+          <h1>Request a quote or ask about a custom build</h1>
+          <p>This starter version of the website uses a simple email-based contact form so you can launch quickly on GitHub Pages. Update the email address in <strong>script.js</strong> before going live.</p>
+        </div>
+        <div class="notice">
+          <strong>Before launch:</strong><br>
+          Open <code>script.js</code> and replace <code>you@example.com</code> with the email you want inquiries sent to.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="panel">
+        <h2>What customers should send</h2>
+        <div class="checklist">
+          <div><span class="check">✓</span><span>Project type: bench, planter, console table, swing, etc.</span></div>
+          <div><span class="check">✓</span><span>Approximate dimensions or space available</span></div>
+          <div><span class="check">✓</span><span>Natural, stained or painted finish preference</span></div>
+          <div><span class="check">✓</span><span>Target city for pickup</span></div>
+          <div><span class="check">✓</span><span>Any inspiration photo or special request</span></div>
+        </div>
+        <div class="notice">Once you start getting steady traffic, we can swap this for a more polished form service or migrate the site later without losing the design direction.</div>
+      </div>
+
+      <form class="form-card" onsubmit="sendQuoteRequest(event)">
+        <div class="form-row">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" required>
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input id="city" name="city" placeholder="Frisco, McKinney, Prosper...">
+          </div>
+        </div>
+
+        <div class="form-stack">
+          <div>
+            <label for="projectType">Project Type</label>
+            <select id="projectType" name="projectType">
+              <option>Console Table</option>
+              <option>Bench</option>
+              <option>Porch Swing</option>
+              <option>Planter</option>
+              <option>Garden Bench</option>
+              <option>Custom Build</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="timeline">Preferred Timeline</label>
+            <input id="timeline" name="timeline" placeholder="For example: within 2 weeks">
+          </div>
+
+          <div>
+            <label for="details">Project Details</label>
+            <textarea id="details" name="details" placeholder="Tell us the size, finish, location, inspiration or anything else that would help with a quote."></textarea>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Send Request</button>
+          <p class="note">This form opens the customer’s email app and pre-fills the request. It works well for a simple launch on GitHub Pages.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>Lonestar Buckeye Woodworks</h4>
+      <p>Handcrafted wood furniture and outdoor pieces built in North Texas. From porch swings and benches to entryway tables and cedar planters, every piece is made with a local carpenter’s touch.</p>
+      <small>© <span id="year"></span> Lonestar Buckeye Woodworks. All rights reserved.</small>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <div class="list">
+        <a href="furniture.html">Furniture</a>
+        <a href="outdoor.html">Outdoor</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="custom-builds.html">Custom Builds</a>
+      </div>
+    </div>
+    <div>
+      <h4>Service Area</h4>
+      <div class="list">
+        <span>Frisco</span>
+        <span>McKinney</span>
+        <span>Prosper</span>
+        <span>Celina</span>
+        <span>Plano</span>
+        <span>Little Elm & nearby areas</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+
+</body>
+</html>
