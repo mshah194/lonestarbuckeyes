@@ -1,5 +1,5 @@
 
-const contactEmail = "you@example.com"; // TODO: replace with your real email before launch
+const contactEmail = "info.lonestarbuckeye@gmail.com"; // TODO: replace with your real email before launch
 
 function sendQuoteRequest(event){
   event.preventDefault();
