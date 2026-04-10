@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Lonestar Buckeye Woodworks</title>
-  <meta name="description" content="Contact Lonestar Buckeye Woodworks for quotes on benches, porch swings, planters and custom furniture.">
+  <meta name="description" content="Request a custom woodworking or laser engraving quote from Lonestar Buckeye Woodworks in Frisco, Texas. Upload inspiration photos, sketches, PDFs, or logo files with your request.">
   <link rel="icon" href="images/logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="topbar">
   <div class="container">
     <div>Handcrafted in North Texas • Frisco, McKinney, Prosper, Celina, Plano & nearby areas</div>
-    <div>Made-to-order furniture, swings, benches and planters</div>
+    <div>Made-to-order furniture, laser engraving, swings, benches and planters</div>
   </div>
 </div>
 <header class="site-header">
@@ -29,6 +28,7 @@
       <a href="index.html">Home</a>
       <a href="furniture.html">Furniture</a>
       <a href="outdoor.html">Outdoor</a>
+      <a href="laser-engraving.html">Laser Engraving</a>
       <a href="custom-builds.html">Custom Builds</a>
       <a href="gallery.html">Gallery</a>
       <a href="contact.html" class="btn btn-primary">Request a Custom Build</a>
@@ -36,116 +36,157 @@
   </div>
 </header>
 
-
 <main>
   <section class="page-hero">
     <div class="container">
       <div class="panel">
         <div>
-          <div class="eyebrow">Get in touch</div>
-          <h1>Request a quote or ask about a custom build</h1>
+          <div class="eyebrow">Custom request form</div>
+          <h1>Tell me what you want built</h1>
+          <p>Send dimensions, ideas, quantities, finish preferences and any reference files you have. You can drag and drop photos, PDFs, logos, sketches and other supporting files right into the form.</p>
+          <div class="service-tags">
+            <span>Furniture</span><span>Outdoor Builds</span><span>Laser Engraving</span><span>File Uploads</span>
+          </div>
         </div>
+        <div class="hero-mini"><img src="images/logo.png" alt="Lonestar Buckeye Woodworks logo"></div>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container contact-grid">
-      <div class="panel">
-        <h2>What customers should send</h2>
-        <div class="checklist">
-          <div><span class="check">✓</span><span>Project type: bench, planter, console table, swing, etc.</span></div>
-          <div><span class="check">✓</span><span>Approximate dimensions or space available</span></div>
-          <div><span class="check">✓</span><span>Natural, stained or painted finish preference</span></div>
-          <div><span class="check">✓</span><span>Target city for pickup</span></div>
-          <div><span class="check">✓</span><span>Any inspiration photo or special request</span></div>
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Request a quote</h2>
+          <p>Include inspiration images, sketches, dimensions, logo files, or PDFs if you have them.</p>
         </div>
       </div>
 
-      <form class="form-card" onsubmit="sendQuoteRequest(event)">
-        <div class="form-row">
-          <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" required>
-          </div>
-          <div>
-            <label for="phone">Phone</label>
-            <input id="phone" name="phone">
-          </div>
-        </div>
+      <div class="panel contact-panel">
+        <form id="quote-form" class="contact-form" action="https://formspree.io/f/mbdpvgzd" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_subject" value="New custom order request from lonestarbuckeyes.com">
+          <input type="hidden" name="_replyto" value="">
+          <input type="text" name="_gotcha" style="display:none">
 
-        <div class="form-row">
-          <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required>
-          </div>
-          <div>
-            <label for="city">City</label>
-            <input id="city" name="city" placeholder="Frisco, McKinney, Prosper...">
-          </div>
-        </div>
-
-        <div class="form-stack">
-          <div>
-            <label for="projectType">Project Type</label>
-            <select id="projectType" name="projectType">
-              <option>Console Table</option>
-              <option>Bench</option>
-              <option>Porch Swing</option>
-              <option>Planter</option>
-              <option>Garden Bench</option>
-              <option>Custom Build</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="timeline">Preferred Timeline</label>
-            <input id="timeline" name="timeline" placeholder="For example: within 2 weeks">
+          <div class="form-grid">
+            <div><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+            <div><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+            <div><label for="phone">Phone</label><input type="text" id="phone" name="phone"></div>
+            <div>
+              <label for="projectType">Project Type</label>
+              <select id="projectType" name="projectType" required>
+                <option value="">Select one</option>
+                <option>Furniture</option>
+                <option>Outdoor Build</option>
+                <option>Laser Engraving</option>
+                <option>Custom Build</option>
+                <option>Business / Bulk Order</option>
+              </select>
+            </div>
+            <div>
+              <label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                <option value="">Select one</option>
+                <option>Under $100</option>
+                <option>$100 - $250</option>
+                <option>$250 - $500</option>
+                <option>$500 - $1,000</option>
+                <option>$1,000+</option>
+              </select>
+            </div>
+            <div><label for="timeline">Requested Timeline</label><input type="text" id="timeline" name="timeline" placeholder="Example: within 2 weeks"></div>
           </div>
 
           <div>
-            <label for="details">Project Details</label>
-            <textarea id="details" name="details" placeholder="Tell us the size, finish, location, inspiration or anything else that would help with a quote."></textarea>
+            <label for="message">Project Details</label>
+            <textarea id="message" name="message" rows="7" placeholder="Tell me what you want built, dimensions, wood type, stain or paint preference, engraving wording, quantity, delivery timing, or anything else that helps." required></textarea>
           </div>
 
-          <button class="btn btn-primary" type="submit">Send Request</button>
-        </div>
-      </form>
+          <div class="upload-wrap">
+            <label for="referenceFiles">Reference Files</label>
+            <div id="dropzone" class="dropzone" tabindex="0" aria-describedby="fileHelp">
+              <input type="file" id="referenceFiles" name="referenceFiles" accept=".png,.jpg,.jpeg,.webp,.pdf,.svg,.doc,.docx" multiple>
+              <div class="dropzone-inner">
+                <strong>Drag & drop files here</strong>
+                <span>or click to browse</span>
+                <small id="fileHelp">Accepted: PNG, JPG, WEBP, PDF, SVG, DOC, DOCX. Formspree documents a 25MB max file size and up to 10 files per submission.</small>
+              </div>
+            </div>
+            <ul id="fileList" class="file-list" aria-live="polite"></ul>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send Request</button>
+            <a class="btn btn-secondary" href="gallery.html">See Example Work</a>
+          </div>
+        </form>
+        <div class="notice form-note">Helpful uploads include inspiration photos, screenshots, furniture dimensions, rough sketches, logo files, and PDFs with examples.</div>
+      </div>
     </div>
   </section>
 </main>
-
 
 <footer class="footer">
   <div class="container footer-grid">
     <div>
       <h4>Lonestar Buckeye Woodworks</h4>
-      <p>Handcrafted wood furniture and outdoor pieces built in North Texas. From porch swings and benches to entryway tables and cedar planters, every piece is made with a local carpenter’s touch.</p>
+      <p>Handcrafted wood furniture, outdoor pieces and laser-engraved products built in North Texas.</p>
       <small>© <span id="year"></span> Lonestar Buckeye Woodworks. All rights reserved.</small>
     </div>
     <div>
       <h4>Explore</h4>
       <div class="list">
-        <a href="furniture.html">Furniture</a>
-        <a href="outdoor.html">Outdoor</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="custom-builds.html">Custom Builds</a>
+        <a href="furniture.html">Furniture</a><a href="outdoor.html">Outdoor</a><a href="laser-engraving.html">Laser Engraving</a><a href="gallery.html">Gallery</a><a href="custom-builds.html">Custom Builds</a>
       </div>
     </div>
     <div>
       <h4>Service Area</h4>
-      <div class="list">
-        <span>Frisco</span>
-        <span>McKinney</span>
-        <span>Prosper</span>
-        <span>Celina</span>
-        <span>Plano</span>
-        <span>Little Elm & nearby areas</span>
-      </div>
+      <div class="list"><span>Frisco</span><span>McKinney</span><span>Prosper</span><span>Celina</span><span>Plano</span><span>Little Elm & nearby areas</span></div>
     </div>
   </div>
 </footer>
 <script src="script.js"></script>
-
+<script>
+(function() {
+  const input = document.getElementById('referenceFiles');
+  const list = document.getElementById('fileList');
+  const zone = document.getElementById('dropzone');
+  const form = document.getElementById('quote-form');
+  const emailInput = document.getElementById('email');
+  function syncReplyTo() {
+    const hidden = form.querySelector('input[name="_replyto"]');
+    if (hidden) hidden.value = emailInput.value.trim();
+  }
+  function renderFiles(files) {
+    list.innerHTML = '';
+    Array.from(files || []).forEach(file => {
+      const li = document.createElement('li');
+      li.textContent = `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
+      list.appendChild(li);
+    });
+  }
+  emailInput.addEventListener('input', syncReplyTo);
+  syncReplyTo();
+  input.addEventListener('change', () => renderFiles(input.files));
+  ['dragenter','dragover'].forEach(name => zone.addEventListener(name, e => {
+    e.preventDefault(); e.stopPropagation(); zone.classList.add('is-dragover');
+  }));
+  ['dragleave','drop'].forEach(name => zone.addEventListener(name, e => {
+    e.preventDefault(); e.stopPropagation(); zone.classList.remove('is-dragover');
+  }));
+  zone.addEventListener('drop', e => {
+    const dt = e.dataTransfer;
+    if (!dt || !dt.files || !dt.files.length) return;
+    const transfer = new DataTransfer();
+    Array.from(dt.files).forEach(file => transfer.items.add(file));
+    input.files = transfer.files;
+    renderFiles(input.files);
+  });
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+  });
+})();
+</script>
 </body>
 </html>
