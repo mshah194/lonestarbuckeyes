@@ -28,12 +28,14 @@
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
       <a href="furniture.html">Furniture</a>
       <a href="outdoor.html">Outdoor</a>
       <a href="laser-engraving.html">Laser Engraving</a>
       <a href="custom-builds.html">Custom Builds</a>
       <a href="gallery.html">Gallery</a>
-      <a href="contact.html" class="btn btn-primary">Request a Custom Build</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" id="cart-nav-toggle" class="cart-link"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge">0</span></a>
     </nav>
   </div>
 </header>
@@ -47,8 +49,8 @@
           <h1>Custom laser engraving for gifts, events and branded pieces</h1>
           <p>Alongside furniture and outdoor builds, Lonestar Buckeye Woodworks also creates laser-engraved items like keychains, bookmarks, coasters, bottle openers and small display pieces. This is a great fit for personalized gifts, event favors, business branding and local bulk orders.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="contact.html">Request a Quote</a>
-            <a class="btn btn-secondary" href="#engraving-gallery">See Engraving Gallery</a>
+            <a class="btn btn-primary" href="shop.html">Shop Ready-Made Items</a>
+            <a class="btn btn-secondary" href="contact.html">Request a Custom Quote</a>
           </div>
           <div class="service-tags">
             <span>Custom Keychains</span>
@@ -60,8 +62,21 @@
           </div>
         </div>
         <div class="hero-mini">
-          <img src="images/laser-keychains-group.jpg" alt="Collection of laser engraved keychains">
+          <img src="images/personalized-keychain-1.jpg" alt="Collection of laser engraved keychains">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="container">
+      <div class="panel" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap">
+        <div>
+          <div class="eyebrow">Ready-made & ships nationwide</div>
+          <h2 style="margin:.2rem 0 .5rem">Shop keychains, bookmarks, coasters & more online</h2>
+          <p style="margin:0; color:var(--muted)">Skip the quote request — these ready-made laser-engraved items check out online and ship anywhere in the US. Custom furniture and outdoor pieces stay quote-based — <a href="contact.html">request a quote</a> for those.</p>
+        </div>
+        <a class="btn btn-primary" href="shop.html">Shop Now</a>
       </div>
     </div>
   </section>
@@ -82,7 +97,7 @@
     		<h3 class="split-heading">A few of the styles already completed</h3>
     		<p class="split-copy">Instead of repeating single samples, this section shows the range of keychains you can order — scenic artwork, motivational sayings, faith-inspired pieces, humorous gifts and custom text.</p>
     		<div class="keychain-collage-single">
-      		<img src="images/laser-keychain-collage.jpg" alt="Collage of custom engraved wooden keychains including scenic, motivational, faith and humor designs">
+      		<img src="images/laser-keychain-combo.png" alt="Collage of custom engraved wooden keychains including scenic, motivational, faith and humor designs">
     	</div>
   		</div>
 
@@ -115,7 +130,7 @@
           </article>
 
           <article class="product">
-            <img src="images/laser-coaster-set.jpg" alt="Engraved round coasters">
+            <img src="images/laser-coaster-collage.jpg" alt="Collage of engraved cork and slate coasters, round and square">
             <div class="body">
               <h3>Branded coasters & logo pieces</h3>
               <p>Round engraved pieces for local organizations, events, businesses or giveaway sets. Perfect when customers want a branded wood item without ordering large furniture pieces.</p>
@@ -162,17 +177,17 @@
         </figure>
 
         <figure>
-          <img src="images/laser-keychain-road.jpg" alt="Scenic engraved keychain">
+          <img src="images/laser-keychain-custom-5.png" alt="Scenic engraved keychain">
           <figcaption>Scenic engraved keychain</figcaption>
         </figure>
 
         <figure>
-          <img src="images/laser-keychain-push.jpg" alt="Motivational engraved keychain">
+          <img src="images/laser-keychain-custom-4.png" alt="Motivational engraved keychain">
           <figcaption>Motivational gift keychain</figcaption>
         </figure>
 
         <figure>
-          <img src="images/laser-coaster-set.jpg" alt="Engraved coaster set">
+          <img src="images/laser-coaster-collage.jpg" alt="Engraved coaster set">
           <figcaption>Custom engraved coaster set</figcaption>
         </figure>
 
@@ -249,6 +264,7 @@
     <div>
       <h4>Explore</h4>
       <div class="list">
+        <a href="shop.html">Shop</a>
         <a href="furniture.html">Furniture</a>
         <a href="outdoor.html">Outdoor</a>
         <a href="laser-engraving.html">Laser Engraving</a>
@@ -271,5 +287,7 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="products.js"></script>
+<script src="cart.js"></script>
 </body>
 </html>

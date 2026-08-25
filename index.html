@@ -27,12 +27,14 @@
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
       <a href="furniture.html">Furniture</a>
       <a href="outdoor.html">Outdoor</a>
       <a href="laser-engraving.html">Laser Engraving</a>
       <a href="custom-builds.html">Custom Builds</a>
       <a href="gallery.html">Gallery</a>
-      <a href="contact.html" class="btn btn-primary">Request a Custom Build</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" id="cart-nav-toggle" class="cart-link"><span aria-hidden="true">🛒</span> Cart <span class="cart-badge">0</span></a>
     </nav>
   </div>
 </header>
@@ -44,9 +46,9 @@
       <div class="hero-copy">
         <div class="eyebrow">Local Carpenter Brand</div>
         <h1>Handcrafted Wood Furniture Built in North Texas</h1>
-        <p>Custom benches, porch swings, entryway tables and garden planters — handcrafted locally for homes, patios and gardens across Frisco, McKinney, Prosper, Celina and nearby areas.</p>
+        <p>Shop ready-made keychains, bookmarks, coasters and more — ships nationwide, checks out online. Prefer something bigger? Custom benches, porch swings, entryway tables and cedar planters are handcrafted locally for homes, patios and gardens across Frisco, McKinney, Prosper, Celina and nearby areas.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="gallery.html">View Our Work</a>
+          <a class="btn btn-primary" href="shop.html">Shop Now</a>
           <a class="btn btn-secondary" href="contact.html">Request a Custom Build</a>
         </div>
         <div class="service-tags">
@@ -71,12 +73,34 @@
     <div class="container">
       <div class="section-title">
         <div>
+          <h2>Best Sellers</h2>
+          <p>Our most popular pieces — pick your options and add straight to your cart, right from the home page.</p>
+        </div>
+        <a class="btn btn-secondary" href="shop.html">See Full Shop</a>
+      </div>
+      <div class="product-grid" id="home-best-sellers-grid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
           <h2>Featured Woodwork</h2>
           <p>A starter collection of the pieces you already build well and can begin showcasing right away on the website, Facebook Marketplace and local listings.</p>
         </div>
       </div>
 
       <div class="card-grid">
+        <a class="card" href="shop.html">
+          <div class="card-media"><img src="images/laser-coaster-collage.jpg" alt="Ready-made shop items"></div>
+          <div class="card-body">
+            <h3>Shop Ready-Made Items</h3>
+            <p>Keychains, bookmarks, coasters and more — in stock now and ships nationwide.</p>
+            <span class="link-arrow">Shop now →</span>
+          </div>
+        </a>
+
         <a class="card" href="furniture.html#console-tables">
           <div class="card-media"><img src="images/console-table.jpg" alt="Farmhouse console table"></div>
           <div class="card-body">
@@ -114,7 +138,7 @@
         </a>
 
         <a class="card" href="laser-engraving.html">
-          <div class="card-media"><img src="images/laser-keychain-push.jpg" alt="Laser engraved wood keychain"></div>
+          <div class="card-media"><img src="images/laser-keychain-custom-6.png" alt="Laser engraved wood keychain"></div>
           <div class="card-body">
             <h3>Laser Engraving</h3>
             <p>Custom keychains, bottle openers, coasters, display stands and bulk logo orders.</p>
@@ -160,7 +184,7 @@
         <figure><img src="images/swing-console.jpg" alt="Porch swing with console"><figcaption>Porch swing with center console</figcaption></figure>
         <figure><img src="images/planter-large.jpg" alt="Raised planter"><figcaption>Raised cedar planter</figcaption></figure>
         <figure><img src="images/garden-bench.jpg" alt="Garden bench"><figcaption>Outdoor garden bench</figcaption></figure>
-        <figure><img src="images/laser-coaster-set.jpg" alt="Laser engraved coasters"><figcaption>Laser engraved coaster set</figcaption></figure>
+        <figure><img src="images/laser-coaster-collage.jpg" alt="Laser engraved coasters"><figcaption>Laser engraved coaster set</figcaption></figure>
       </div>
     </div>
   </section>
@@ -193,6 +217,7 @@
     <div>
       <h4>Explore</h4>
       <div class="list">
+        <a href="shop.html">Shop</a>
         <a href="furniture.html">Furniture</a>
         <a href="outdoor.html">Outdoor</a>
         <a href="laser-engraving.html">Laser Engraving</a>
@@ -214,6 +239,8 @@
   </div>
 </footer>
 <script src="script.js"></script>
+<script src="products.js"></script>
+<script src="cart.js"></script>
 
 </body>
 </html>
