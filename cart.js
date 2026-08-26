@@ -205,12 +205,18 @@ function renderBadge() {
 
 // --- Engraving customization (text/font or logo upload) -------------------
 
-// Reuses the same Formspree form the contact page already posts to - this
-// is only for delivering an uploaded logo FILE to the owner's inbox (Stripe
-// Checkout can't carry attachments). Text engraving needs no upload at all:
-// it's cheap enough to pass straight through to the Checkout line item
-// description, so it skips this entirely - see startCheckout().
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mbdpvgzd";
+// Logo files are emailed to the owner via the LonestarShopApp backend
+// (which sends via Gmail SMTP, same pattern as LonestarAdminApp) - Stripe
+// Checkout can't carry attachments, so this has to happen at add-to-cart
+// time instead. Originally used Formspree (the same form the contact page
+// posts to), but Formspree's free plan turned out to reject file
+// attachments outright ("File Uploads Not Permitted") - discovered
+// 2026-08-25 via a real customer report after launch, not caught during
+// development since testing used a mocked fetch to avoid emailing test
+// junk to the owner's inbox before they knew about the feature. Text
+// engraving needs no upload at all: it's cheap enough to pass straight
+// through to the Checkout line item description, so it skips this
+// entirely - see startCheckout().
 
 // Font choices are a preference label relayed to the owner for the actual
 // engraving, not a live render of the real laser font - inline styling on
@@ -226,6 +232,11 @@ const FONT_OPTIONS = [
 function generateRefCode() {
   return Math.random().toString(36).slice(2, 8).toUpperCase();
 }
+
+// Mirrors MAX_LOGO_BYTES in LonestarShopApp/app.py - checked client-side
+// too so an oversized file fails fast instead of only after an upload
+// attempt.
+const LOGO_MAX_BYTES = 10 * 1024 * 1024;
 
 // --- Stain finish add-on (porch swings) ------------------------------------
 
@@ -283,14 +294,13 @@ function wireStainPanel(panel, product) {
   };
 }
 
-// Uploads a logo file to the owner via Formspree (AJAX submission - see
-// https://help.formspree.io/hc/en-us/articles/360013580813). Returns a
-// short reference code included in both the email subject and the Stripe
-// line item, so the owner can match a paid order to the emailed design.
+// Uploads a logo file to the owner via the LonestarShopApp backend, which
+// emails it (see send_logo_email() in app.py). Returns a short reference
+// code included in both the email subject and the Stripe line item, so the
+// owner can match a paid order to the emailed design.
 async function submitLogoCustomization(product, qty, file, text, font) {
   const ref = generateRefCode();
   const formData = new FormData();
-  formData.append("_subject", `New engraving logo — ${product.name} (Ref ${ref})`);
   formData.append("product", product.name);
   formData.append("quantity", String(qty));
   formData.append("reference", ref);
@@ -299,12 +309,16 @@ async function submitLogoCustomization(product, qty, file, text, font) {
     formData.append("text_note", `${text}${font ? ` (${font})` : ""}`);
   }
 
-  const res = await fetch(FORMSPREE_ENDPOINT, {
-    method: "POST",
-    headers: { Accept: "application/json" },
-    body: formData
-  });
-  if (!res.ok) throw new Error("Upload failed - please try again or email it to us directly.");
+  let res;
+  try {
+    res = await fetch(`${SHOP_API_URL}/api/upload-logo`, { method: "POST", body: formData });
+  } catch (e) {
+    throw new Error("Upload failed - please try again or email it to us directly.");
+  }
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new Error((data && data.error) || "Upload failed - please try again or email it to us directly.");
+  }
   return ref;
 }
 
@@ -333,7 +347,7 @@ function customizationPanelHTML(product) {
       </div>
       <div class="customize-logo-fields">
         <input type="file" class="customize-logo-input" accept="image/png,image/jpeg,image/svg+xml,application/pdf">
-        <p class="note">Optional logo: PNG, JPG, SVG or PDF, up to 25MB. Add text and/or a logo — we'll confirm the final engraving look with you before production.</p>
+        <p class="note">Optional logo: PNG, JPG, SVG or PDF, up to 10MB. Add text and/or a logo — we'll confirm the final engraving look with you before production.</p>
       </div>
       <p class="customize-error" hidden></p>
     </div>
@@ -370,6 +384,11 @@ function wireCustomizationPanel(panel) {
       errorEl.hidden = false;
       return false;
     }
+    if (c.file && c.file.size > LOGO_MAX_BYTES) {
+      errorEl.textContent = `That file is too large - please keep logos under ${LOGO_MAX_BYTES / (1024 * 1024)}MB.`;
+      errorEl.hidden = false;
+      return false;
+    }
     errorEl.hidden = true;
     return true;
   };
@@ -378,8 +397,9 @@ function wireCustomizationPanel(panel) {
 // Shared by every "Add to Cart" trigger on a customizable product. Text-only
 // customization commits immediately (nothing to upload); a logo (with or
 // without accompanying text) disables the button while it sends the file to
-// the owner via Formspree, then commits only once that succeeds - so a
-// failed upload never results in an order the owner has no design for.
+// the owner via the LonestarShopApp backend, then commits only once that
+// succeeds - so a failed upload never results in an order the owner has no
+// design for.
 async function addCustomizedToCart(id, qty, panel, btn) {
   if (!panel.validate()) return;
   const c = panel.getCustomization();
