@@ -1132,6 +1132,60 @@ function renderBestSellers() {
   renderGridInto(grid, groups);
 }
 
+// Product/Offer JSON-LD for the shop grid, built straight from PRODUCTS so
+// it can never drift from what the cards actually show. Mirrors the same
+// "From $X" price picked by buildProductCard() above: the lowest sizeOptions
+// or tieredPricing price, otherwise the flat price. Only runs on shop.html
+// (i.e. only where the ships/pickup grids exist) - the home page's Best
+// Sellers strip re-renders a couple of the same cards and would just
+// duplicate this data.
+function resolveOfferForGroup(group) {
+  const primary = group.variants[0];
+  let cents;
+  if (primary.sizeOptions) {
+    const prices = primary.sizeOptions.map(o => findProduct(o.id)).filter(Boolean).map(p => p.price);
+    if (!prices.length) return null;
+    cents = Math.min(...prices);
+  } else if (primary.tieredPricing) {
+    cents = Math.min(...primary.tieredPricing.map(t => t.price));
+  } else if (typeof primary.price === "number") {
+    cents = primary.price;
+  } else {
+    return null;
+  }
+  return { "@type": "Offer", price: (cents / 100).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock" };
+}
+
+function renderProductSchema() {
+  if (typeof PRODUCTS === "undefined") return;
+  const grid = document.getElementById("shop-product-grid-ships") || document.getElementById("shop-product-grid-pickup");
+  if (!grid) return;
+
+  const items = groupProductsForDisplay().map(group => {
+    const primary = group.variants[0];
+    const offer = resolveOfferForGroup(group);
+    if (!offer) return null;
+    const images = (primary.images && primary.images.length ? primary.images : [primary.image]).filter(Boolean);
+    return {
+      "@type": "Product",
+      "sku": primary.id,
+      "name": primary.groupName || primary.name,
+      "description": primary.groupDescription || primary.description || primary.name,
+      "image": images.map(src => `https://lonestarbuckeyes.com/${src}`),
+      "url": `https://lonestarbuckeyes.com/shop.html#product-${group.key}`,
+      "brand": { "@type": "Brand", "name": "Lonestar Buckeye Woodworks" },
+      "offers": offer
+    };
+  }).filter(Boolean);
+
+  if (!items.length) return;
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
+  document.head.appendChild(script);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   buildDrawer();
   buildZipModal();
@@ -1140,6 +1194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCartPage();
   renderProductGrid();
   renderBestSellers();
+  renderProductSchema();
   scrollToHashProduct();
 
   document.querySelectorAll("#cart-nav-toggle").forEach(link => {
