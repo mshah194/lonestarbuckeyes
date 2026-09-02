@@ -1,39 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://lonestarbuckeyes.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/hero-swing.jpg</image:loc>
+      <image:title>Handcrafted porch swing by Lonestar Buckeye Woodworks</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/console-table.jpg</image:loc>
+      <image:title>Farmhouse console table</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/planter-group.jpg</image:loc>
+      <image:title>Cedar planter collection</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/shop.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/laser-coaster-collage.jpg</image:loc>
+      <image:title>Laser engraved coaster set</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/laser-keychain-custom-6.png</image:loc>
+      <image:title>Laser engraved wood keychain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/cedar-planter-16x16-labeled.jpg</image:loc>
+      <image:title>Cedar planter with dimensions</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/furniture.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/console-table.jpg</image:loc>
+      <image:title>Farmhouse console table</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/bench-front.jpg</image:loc>
+      <image:title>Solid wood bench</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/outdoor.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/swing-finished.jpg</image:loc>
+      <image:title>Dark stained porch swing</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/planter-group.jpg</image:loc>
+      <image:title>Cedar planter collection</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/garden-bench.jpg</image:loc>
+      <image:title>Outdoor garden bench</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/laser-engraving.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/laser-keychain-custom-6.png</image:loc>
+      <image:title>Laser engraved wood keychain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/laser-coaster-collage.jpg</image:loc>
+      <image:title>Laser engraved coaster set</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/laser-bulk-order.jpg</image:loc>
+      <image:title>Bulk laser engraved order</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/custom-builds.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/patio-sofa.jpg</image:loc>
+      <image:title>Custom patio sofa build</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/gallery.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/swing-console.jpg</image:loc>
+      <image:title>Porch swing with center console</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/jewelry-display-clean.png</image:loc>
+      <image:title>Handcrafted jewelry display stands</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lonestarbuckeyes.com/images/farmhouse-coffee-table.jpg</image:loc>
+      <image:title>Farmhouse coffee table</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lonestarbuckeyes.com/contact.html</loc>
