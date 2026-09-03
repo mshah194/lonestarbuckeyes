@@ -119,7 +119,7 @@ const PRODUCTS = [
     customizable: true,
     presetSets: [4, 6, 8],
     images: [
-      "images/laser-coaster-slate-round-1.png",
+      "images/laser-coaster-slate-round-1.jpg",
       "images/laser-coaster-slate-round-2.png",
       "images/laser-coaster-slate-round-3.png",
       "images/laser-coaster-slate-round-4.png",
