@@ -784,11 +784,11 @@ function groupProductsForDisplay() {
 // Renders an image carousel into `container` for the given image list.
 // Single-image products just get a plain image (nav/dots only render when
 // there's more than one photo).
-function renderCarousel(container, images) {
+function renderCarousel(container, images, name = "") {
   const safeImages = images && images.length ? images : [""];
   container.innerHTML = `
     <div class="carousel-viewport">
-      ${safeImages.map((src, i) => `<img src="${src}" class="carousel-slide${i === 0 ? " is-active" : ""}" alt="">`).join("")}
+      ${safeImages.map((src, i) => `<img src="${src}" class="carousel-slide${i === 0 ? " is-active" : ""}" alt="${name}${i > 0 ? ` — photo ${i + 1}` : ""}">`).join("")}
     </div>
     ${safeImages.length > 1 ? `
       <button type="button" class="carousel-nav carousel-prev" aria-label="Previous photo">&#8249;</button>
@@ -1071,7 +1071,7 @@ function buildProductCard(article, group) {
   }
 
   function setVariant(variant) {
-    renderCarousel(carouselEl, variant.images || [variant.image]);
+    renderCarousel(carouselEl, variant.images || [variant.image], variant.name);
     renderPurchaseControls(controlsEl, variant);
     article.querySelectorAll(".shape-btn").forEach(btn => {
       btn.classList.toggle("is-active", btn.dataset.variantId === variant.id);
@@ -1180,12 +1180,8 @@ function resolveOfferForGroup(group) {
   return { "@type": "Offer", price: (cents / 100).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock" };
 }
 
-function renderProductSchema() {
-  if (typeof PRODUCTS === "undefined") return;
-  const grid = document.getElementById("shop-product-grid-ships") || document.getElementById("shop-product-grid-pickup");
-  if (!grid) return;
-
-  const items = groupProductsForDisplay().map(group => {
+function buildProductSchemaItems(groups, pageUrl) {
+  return groups.map(group => {
     const primary = group.variants[0];
     const offer = resolveOfferForGroup(group);
     if (!offer) return null;
@@ -1196,18 +1192,40 @@ function renderProductSchema() {
       "name": primary.groupName || primary.name,
       "description": primary.groupDescription || primary.description || primary.name,
       "image": images.map(src => `https://lonestarbuckeyes.com/${src}`),
-      "url": `https://lonestarbuckeyes.com/shop.html#product-${group.key}`,
+      "url": `${pageUrl}#product-${group.key}`,
       "brand": { "@type": "Brand", "name": "Lonestar Buckeye Woodworks" },
       "offers": offer
     };
   }).filter(Boolean);
+}
 
+function injectProductSchema(items) {
   if (!items.length) return;
-
   const script = document.createElement("script");
   script.type = "application/ld+json";
   script.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
   document.head.appendChild(script);
+}
+
+// Emits Product/Offer JSON-LD scoped to whichever grid is actually on the
+// page, each with its own canonical url - shop.html's full catalog, or
+// (once real Add to Cart landed there) laser-engraving.html's shippable
+// subset, matching what that page's own grid renders. Never both on the
+// same page.
+function renderProductSchema() {
+  if (typeof PRODUCTS === "undefined") return;
+
+  const shopGrid = document.getElementById("shop-product-grid-ships") || document.getElementById("shop-product-grid-pickup");
+  if (shopGrid) {
+    injectProductSchema(buildProductSchemaItems(groupProductsForDisplay(), "https://lonestarbuckeyes.com/shop.html"));
+    return;
+  }
+
+  const engravingGrid = document.getElementById("engraving-product-grid");
+  if (engravingGrid) {
+    const groups = groupProductsForDisplay().filter(g => g.variants[0].fulfillment === "ships");
+    injectProductSchema(buildProductSchemaItems(groups, "https://lonestarbuckeyes.com/laser-engraving.html"));
+  }
 }
 
 // Wires a real, working purchase control - identical to Shop's, including
