@@ -1004,6 +1004,28 @@ function wireSimpleAddButton(btn, product) {
   });
 }
 
+// Fills `controlsEl` with whichever picker `product` needs (size, preset
+// quantity set, tiered quantity, or a plain Add to Cart button) and wires
+// it up. Shared by buildProductCard() (the Shop/Home grid) and
+// wireStaticProductCards() (the Furniture/Outdoor marketing pages) so
+// every purchase path - including the pickup ZIP gate inside addToCart() -
+// behaves identically no matter which page the button lives on.
+function renderPurchaseControls(controlsEl, product) {
+  if (product.sizeOptions) {
+    controlsEl.innerHTML = sizePickerHTML(product);
+    wireSizePicker(controlsEl, product);
+  } else if (product.presetSets) {
+    controlsEl.innerHTML = presetQtyPickerHTML(product);
+    wirePresetQtyPicker(controlsEl, product);
+  } else if (product.tieredPricing) {
+    controlsEl.innerHTML = tieredQtyPickerHTML(product);
+    wireTieredQtyPicker(controlsEl, product);
+  } else {
+    controlsEl.innerHTML = `<button type="button" class="btn btn-primary add-to-cart-btn" data-add-to-cart="${product.id}">Add to Cart</button>`;
+    wireSimpleAddButton(controlsEl.querySelector("[data-add-to-cart]"), product);
+  }
+}
+
 // Builds one product card, including a Round/Square-style toggle when the
 // group has more than one variant.
 function buildProductCard(article, group) {
@@ -1050,19 +1072,7 @@ function buildProductCard(article, group) {
 
   function setVariant(variant) {
     renderCarousel(carouselEl, variant.images || [variant.image]);
-    if (variant.sizeOptions) {
-      controlsEl.innerHTML = sizePickerHTML(variant);
-      wireSizePicker(controlsEl, variant);
-    } else if (variant.presetSets) {
-      controlsEl.innerHTML = presetQtyPickerHTML(variant);
-      wirePresetQtyPicker(controlsEl, variant);
-    } else if (variant.tieredPricing) {
-      controlsEl.innerHTML = tieredQtyPickerHTML(variant);
-      wireTieredQtyPicker(controlsEl, variant);
-    } else {
-      controlsEl.innerHTML = `<button type="button" class="btn btn-primary add-to-cart-btn" data-add-to-cart="${variant.id}">Add to Cart</button>`;
-      wireSimpleAddButton(controlsEl.querySelector("[data-add-to-cart]"), variant);
-    }
+    renderPurchaseControls(controlsEl, variant);
     article.querySelectorAll(".shape-btn").forEach(btn => {
       btn.classList.toggle("is-active", btn.dataset.variantId === variant.id);
     });
@@ -1186,6 +1196,28 @@ function renderProductSchema() {
   document.head.appendChild(script);
 }
 
+// Wires a real, working purchase control - identical to Shop's, including
+// the pickup ZIP gate inside addToCart() - into a static marketing card on
+// furniture.html/outdoor.html. Each card keeps its own hand-written photo,
+// heading and description; only its `.product-controls[data-static-product]`
+// placeholder gets filled in, via the exact same renderPurchaseControls()
+// Shop uses. A no-op on any page without such a placeholder.
+function wireStaticProductCards() {
+  document.querySelectorAll(".product-controls[data-static-product]").forEach(controlsEl => {
+    const product = findProduct(controlsEl.dataset.staticProduct);
+    if (!product) return;
+
+    if (product.stainOption) {
+      const wrap = document.createElement("div");
+      wrap.innerHTML = stainPanelHTML(product);
+      controlsEl.parentNode.insertBefore(wrap.firstElementChild, controlsEl);
+      wireStainPanel(controlsEl.parentNode.querySelector(".stain-panel"), product);
+    }
+
+    renderPurchaseControls(controlsEl, product);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   buildDrawer();
   buildZipModal();
@@ -1195,6 +1227,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProductGrid();
   renderBestSellers();
   renderProductSchema();
+  wireStaticProductCards();
   scrollToHashProduct();
 
   document.querySelectorAll("#cart-nav-toggle").forEach(link => {
