@@ -1250,6 +1250,31 @@ function wireStaticProductCards() {
   });
 }
 
+// Product/Offer JSON-LD for furniture.html/outdoor.html's static cards -
+// same idea as renderProductSchema() above, but sourced from whichever
+// data-static-product ids wireStaticProductCards() already wires up on
+// this page, deduped (the same product can appear on two marketing
+// cards, e.g. the console table) and scoped to this page's own
+// canonical url so it never collides with Shop's schema for the same
+// product.
+function renderStaticProductSchema() {
+  if (typeof PRODUCTS === "undefined") return;
+  const ids = [...new Set(
+    [...document.querySelectorAll(".product-controls[data-static-product]")]
+      .map(el => el.dataset.staticProduct)
+  )];
+  if (!ids.length) return;
+
+  const groups = ids
+    .map(id => findProduct(id))
+    .filter(Boolean)
+    .map(product => ({ key: product.id, variants: [product] }));
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) return;
+  injectProductSchema(buildProductSchemaItems(groups, canonical.href));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   buildDrawer();
   buildZipModal();
@@ -1261,6 +1286,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderEngravingShop();
   renderProductSchema();
   wireStaticProductCards();
+  renderStaticProductSchema();
   scrollToHashProduct();
 
   document.querySelectorAll("#cart-nav-toggle").forEach(link => {
