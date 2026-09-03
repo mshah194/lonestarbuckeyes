@@ -1142,6 +1142,20 @@ function renderBestSellers() {
   renderGridInto(grid, groups);
 }
 
+// laser-engraving.html's own "Shop engraved items" grid - every shippable
+// (fulfillment: "ships") product, i.e. the full engraved-goods catalog,
+// using the exact same buildProductCard() as Shop so customization panels,
+// tiered/preset pricing and Round/Square toggles all work identically. No
+// separate product list to maintain - it's the same "ships" filter Shop's
+// own grid uses, so a new shippable item added to PRODUCTS shows up here
+// automatically.
+function renderEngravingShop() {
+  const grid = document.getElementById("engraving-product-grid");
+  if (!grid || typeof PRODUCTS === "undefined") return;
+  const groups = groupProductsForDisplay().filter(g => g.variants[0].fulfillment === "ships");
+  renderGridInto(grid, groups);
+}
+
 // Product/Offer JSON-LD for the shop grid, built straight from PRODUCTS so
 // it can never drift from what the cards actually show. Mirrors the same
 // "From $X" price picked by buildProductCard() above: the lowest sizeOptions
@@ -1226,6 +1240,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCartPage();
   renderProductGrid();
   renderBestSellers();
+  renderEngravingShop();
   renderProductSchema();
   wireStaticProductCards();
   scrollToHashProduct();
