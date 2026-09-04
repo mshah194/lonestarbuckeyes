@@ -1230,7 +1230,7 @@ function renderProductSchema() {
 
 // Wires a real, working purchase control - identical to Shop's, including
 // the pickup ZIP gate inside addToCart() - into a static marketing card on
-// furniture.html/outdoor.html. Each card keeps its own hand-written photo,
+// furniture.html/outdoor.html. Each card keeps its own hand-written
 // heading and description; only its `.product-controls[data-static-product]`
 // placeholder gets filled in, via the exact same renderPurchaseControls()
 // Shop uses. A no-op on any page without such a placeholder.
@@ -1238,6 +1238,22 @@ function wireStaticProductCards() {
   document.querySelectorAll(".product-controls[data-static-product]").forEach(controlsEl => {
     const product = findProduct(controlsEl.dataset.staticProduct);
     if (!product) return;
+
+    const article = controlsEl.closest("article.product");
+
+    // A product with multiple photos (currently just the cedar planter)
+    // gets the same swipeable carousel Shop uses, replacing the card's
+    // single static <img> - otherwise these pages only ever show one
+    // angle of a product Shop presents with a full photo set.
+    if (article && product.images && product.images.length > 1) {
+      const staticImg = article.querySelector("img");
+      if (staticImg) {
+        const carouselEl = document.createElement("div");
+        carouselEl.className = "product-carousel";
+        staticImg.replaceWith(carouselEl);
+        renderCarousel(carouselEl, product.images, product.name);
+      }
+    }
 
     if (product.stainOption) {
       const wrap = document.createElement("div");
